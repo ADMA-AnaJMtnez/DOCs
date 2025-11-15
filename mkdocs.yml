@@ -1,0 +1,59 @@
+# --- Configuración del Sitio ---
+site_name: CE·Cloud-ADMA
+site_description: 'Automatización, Despliegue y Migración de Aplicaciones'
+site_url: https://sitename.example.com # Reemplaza con tu URL
+
+# --- Tema y Características ---
+theme:
+  name: material
+  logo: assets/logo.png # Un logo de ejemplo
+  favicon: assets/favicon.ico
+  palette:
+    # Paleta para modo oscuro
+    - scheme: slate
+      primary: green
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Cambiar a modo claro
+    # Paleta para modo claro
+    - scheme: default
+      primary: blue
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Cambiar a modo oscuro
+  features:
+    - navigation.footer
+    - navigation.tabs
+    - navigation.top
+
+# --- Navegación (Menú) ---
+nav:
+  - 'Inicio': 'index.md'
+  - 'UD3. IaC':
+    - 'Teoría': 'UD3.IaC/TEORIA.md'
+    - 'Prácticas':
+      - 'PR1: Guía Canary CLI': 'UD3.IaC/Practicas/UD3.PR1-GuiaPractica.md'
+      # - 'PR2: Siguiente Guía': 'UD3.IaC/Practicas/UD3.PR2.md'
+
+# --- Extensiones de Markdown (¡Aquí activamos la magia!) ---
+markdown_extensions:
+  - admonition  # Para los bloques !!! note, !!! warning, etc.
+  - pymdownx.details
+  - pymdownx.superfences: # Para bloques de código anidados
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:      # Para las pestañas (Content Tabs)
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:   # Para resaltar sintaxis en bloques de código
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
