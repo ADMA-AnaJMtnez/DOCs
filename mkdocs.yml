@@ -35,9 +35,12 @@ nav:
     - 'Teoría': 'UD3.IaC/TEORIA.md'
     - 'Prácticas':
       - 'UD3.PR1':
-        - 'PR1: Guía Canary CLI': 'UD3.IaC/Practicas/UD3.PR1/UD3.PR1-GuiaPractica.md' # <-- AÑADE LA TILDE AQUÍ
+        - 'PR1: Guía Canary CLI_HTML- P1': 'UD3.IaC/Practicas/UD3.PR1/UD3.PR1-GuiaPracticaP1.md'
+        - 'PR1: Guía Canary CLI_HTMLS- P2': 'UD3.IaC/Practicas/UD3.PR1/UD3.PR1-GuiaPracticaP2.md' 
         #- 'PR1: Deploy Script': 'UD3.IaC/Practicas/UD3.PR1/UD3.PR1-deploy.md'
       # - 'UD3.PR2: Siguiente Guía': 'UD3.Iac/Practicas/UD3.PR2/...'
+    - 'Ayuda':
+      - 'PR1: Configuración Credenciales AWS': 'UD3.IaC/Practicas/UD3.PR1/UD3.PR1-ConfigurarCredencialesAWS.md'
 
 # --- Extensiones de Markdown (¡Aquí activamos la magia!) ---
 markdown_extensions:

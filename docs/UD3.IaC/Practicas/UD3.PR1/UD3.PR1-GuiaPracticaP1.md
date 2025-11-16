@@ -1,4 +1,4 @@
-## 🚀 UD2.PR7 (Parte 1): De la Consola a la CLI: Tu Despliegue Canary (HTTP)
+## 🚀 UD3.PR1 (Parte 1): De la Consola a la CLI: Tu Despliegue Canary (HTTP)
 
 ### 1. Introducción
 
@@ -23,6 +23,7 @@ Antes de empezar, asegúrate de tener todo tu entorno local preparado:
     * *Documentación Oficial:* [Instalación de Git](https://git-scm.com/downloads)
     * *Guía Relacionada:* [Cómo crear un repositorio en GitHub](https://docs.github.com/es/repositories/creating-and-managing-repositories/creating-a-new-repository)
 4.  **Tu Dominio (Nominalia):** Necesitas acceso a tu registrador de dominio para el paso manual de delegación de NS.
+    * *Documentación Oficial:* [Pág. Oficial: Nominalia](https://www.nominalia.com/)
 
 !!! note "Usuario de AWS (Landing Zone / Academy)"
     * **Opción A (Preferida - Landing Zone):** Intentarás la práctica primero con las **credenciales programáticas** (`Access Key ID` y `Secret Access Key`) asociadas a tu usuario de la Landing Zone.
@@ -31,10 +32,6 @@ Antes de empezar, asegúrate de tener todo tu entorno local preparado:
 
 ---
 
-### 3. Paso 1: Configuración del Entorno de Proyecto
-
-1.  **Crear un Repositorio Privado:** Ve a GitHub y crea un nuevo repositorio **privado** llamado `iac-aws-canary-http.[TUSSIGLAS]` (reemplaza `[TUSSIGLAS]` con tus siglas).
-2.  **Clonar y Abrir:** Clona el repositorio, entra en la carpeta (`cd iac-aws-canary-http.[TUSSIGLAS]`) y ábrela con VS Code (`code .`).
 ### 3. Paso 1: Configuración del Entorno de Proyecto
 
 1.  **Crear un Repositorio Privado:** Ve a GitHub y crea un nuevo repositorio **privado** llamado `iac-aws-canary-http.[TUSSIGLAS]` (reemplaza `[TUSSIGLAS]` con tus siglas).
@@ -87,23 +84,74 @@ Copia el contenido de los scripts `bash` en los archivos correspondientes.
 
 #### 5.2. El Script de Creación (`deploy.sh`)
 
+Este script creará **todo** para HTTP: SGs (solo puerto 80), la zona DNS, las instancias, los 
 Este script creará **todo** para HTTP: SGs (solo puerto 80), la zona DNS, las instancias, los TGs, el ALB y el Listener HTTP.
 
-Puedes descargarlo directamente aquí:
+Puedes ver la **explicación detallada** del script o **descargarlo** directamente:
 
+[Ver Explicación :octicons-eye-16:](UD3.PR1-deploy.md){ .md-button }
 [Descargar `UD3.PR1-deploy.sh` :octicons-download-16:](UD3.PR1-deploy.sh){ .md-button }
 
 #### 5.3. El Script de Despliegue (`canary.sh`)
 
 Este script modificará el **Listener 80** (HTTP) para cambiar los pesos.
 
-Puedes descargarlo directamente aquí:
+Puedes ver la **explicación detallada** del script o **descargarlo** directamente:
 
+[Ver Explicación :octicons-eye-16:](UD3.PR1-canary.md){ .md-button }
 [Descargar `UD3.PR1-canary.sh` :octicons-download-16:](UD3.PR1-canary.sh){ .md-button }
 
 #### 5.4. El Script de Destrucción (`destroy.sh`)
 Este script elimina solo los recursos HTTP creados.
 
-Puedes descargarlo directamente aquí:
+Puedes ver la **explicación detallada** del script o **descargarlo** directamente:
 
+[Ver Explicación :octicons-eye-16:](UD3.PR1-destroy.md){ .md-button }
 [Descargar `UD3.PR1-destroy.sh` :octicons-download-16:](UD3.PR1-destroy.sh){ .md-button }
+
+## 🚀 6. Ejecución (Parte 1)
+
+Sigue estos pasos para desplegar y probar tu aplicación.
+
+---
+
+### 💻 1. Preparación de Scripts
+
+Primero, asegúrate de que tus scripts sean ejecutables. En tu terminal local, ejecuta:
+
+```bash
+chmod +x deploy.sh canary.sh destroy.sh 
+```
+
+### ⚙️ 2. Fases de Despliegue
+
+Sigue esta secuencia para realizar un despliegue canary controlado.
+
+#### Fase 1: Despliegue Inicial (Estable)
+1.  **Ejecuta** el script de despliegue:
+    `./deploy.sh`
+2.  **Acción Manual:** Sigue la instrucción que aparecerá en la terminal para delegar los Name Servers (NS) en tu panel de control de **Nominalia**.
+3.  **Prueba:** Espera a que los cambios de DNS se propaguen por completo.
+4.  **Verifica:** Visita tu dominio `http://app.aws.tudominio.com`.
+5.  **Resultado Esperado:** Deberías ver la página **Verde (Estable)**.
+
+#### Fase 3: Despliegue Completo (0/100)
+1.  **Ejecuta** nuevamente el script de canary:
+    `./canary.sh`
+2.  **Elige** la **opción 2 (0/100)**.
+3.  **Prueba:** Recarga la página en tu navegador.
+4.  **Resultado Esperado:** Ahora, solo deberías ver la página **Azul (Canary)** en todas las recargas.
+
+---
+
+!!! check "Entregable Parcial"
+
+    1.  Sube todo tu código (los 5 archivos) al **repositorio privado de GitHub**.
+    2.  Prepara un **PDF** que incluya:
+        * El enlace a tu repositorio privado.
+        * Capturas de pantalla de tu terminal mostrando la salida de `deploy.sh` y `canary.sh` (fases 2 y 3).
+        * Capturas de pantalla de tu navegador mostrando (con `http://`):
+            * La página Verde (Fase 1).
+            * La página Azul (Fase 2).
+            * La página Azul (Fase 3).
+        * **(Opcional)** Si usaste la Landing Zone y falló, añade las capturas de los errores de permisos.
