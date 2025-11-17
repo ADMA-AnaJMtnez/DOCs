@@ -24,6 +24,14 @@ Antes de empezar, asegúrate de tener todo tu entorno local preparado:
     * *Guía Relacionada:* [Cómo crear un repositorio en GitHub](https://docs.github.com/es/repositories/creating-and-managing-repositories/creating-a-new-repository)
 4.  **Tu Dominio (Nominalia):** Necesitas acceso a tu registrador de dominio para el paso manual de delegación de NS.
     * *Documentación Oficial:* [Pág. Oficial: Nominalia](https://www.nominalia.com/)
+5.  **VPC Base de Proyecto (Topología de Red):**
+    Debes contar dentro de tu entorno de laboratorio con una VPC ya desplegada (puedes reutilizar la de la unidad anterior o crear una nueva con CloudFormation/Terraform) que cumpla estrictamente con la topología mostrada en la imagen inferior:
+
+    * **2 Zonas de Disponibilidad** (ej. `eu-south-2a` y `eu-south-2b`).
+    * **Subredes Públicas y Privadas** en cada zona.
+    * **Internet Gateway** y **Tablas de enrutamiento** configuradas correctamente.
+
+    ![Mapa de recursos de la VPC con subredes públicas y privadas](img/EjemVPCbase.png)
 
 !!! note "Usuario de AWS (Landing Zone / Academy)"
     * **Opción A (Preferida - Landing Zone):** Intentarás la práctica primero con las **credenciales programáticas** (`Access Key ID` y `Secret Access Key`) asociadas a tu usuario de la Landing Zone.
