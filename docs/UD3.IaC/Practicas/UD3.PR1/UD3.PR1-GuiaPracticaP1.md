@@ -98,7 +98,7 @@ Este script creará **todo** para HTTP: SGs (solo puerto 80), la zona DNS, las i
 Puedes ver la **explicación detallada** del script o **descargarlo** directamente:
 
 [Ver Explicación :octicons-eye-16:](UD3.PR1-deploy.md){ .md-button }
-[Descargar `UD3.PR1-deploy.sh` :octicons-download-16:](UD3.PR1-deploy.sh){ .md-button }
+[Descargar `UD3.PR1-deployConError` :octicons-download-16:](UD3.PR1-deploy-ConErrores.txt){ .md-button }
 
 #### 5.3. El Script de Despliegue (`canary.sh`)
 

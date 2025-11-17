@@ -21,7 +21,7 @@ SG_ALB_ID=$(aws ec2 create-security-group \
   --vpc-id $VPC_ID \
   --query 'GroupId' --output text)
 # Regla para el ALB (Solo HTTP)
-[cite_start]aws ec2 authorize-security-group-ingress --group-id $SG_ALB_ID --protocol tcp --port 80 --cidr 0.0.0.0/0 [cite: 35-36]
+aws ec2 authorize-security-group-ingress --group-id $SG_ALB_ID --protocol tcp --port 80 --cidr 0.0.0.0/0 
 echo "SG del ALB creado: $SG_ALB_ID"
 
 SG_EC2_ID=$(aws ec2 create-security-group \
@@ -30,15 +30,15 @@ SG_EC2_ID=$(aws ec2 create-security-group \
   --vpc-id $VPC_ID \
   --query 'GroupId' --output text)
 # Reglas para las Instancias (SSH desde mi IP, HTTP solo desde el ALB)
-[cite_start]aws ec2 authorize-security-group-ingress --group-id $SG_EC2_ID --protocol tcp --port 22 --cidr $MY_IP [cite: 41-42]
-[cite_start]aws ec2 authorize-security-group-ingress --group-id $SG_EC2_ID --protocol tcp --port 80 --source-group $SG_ALB_ID [cite: 43-44]
+aws ec2 authorize-security-group-ingress --group-id $SG_EC2_ID --protocol tcp --port 22 --cidr $MY_IP 
+aws ec2 authorize-security-group-ingress --group-id $SG_EC2_ID --protocol tcp --port 80 --source-group $SG_ALB_ID 
 echo "SG de Instancias creado: $SG_EC2_ID"
 
 echo "--- 2. Creando Zona Alojada (Route 53) ---"
 ZONE_ID_OUTPUT=$(aws route53 create-hosted-zone --name $DOMAIN_NAME --caller-reference $(date +%s))
 HOSTED_ZONE_ID=$(echo $ZONE_ID_OUTPUT | jq -r '.HostedZone.Id' | cut -d'/' -f3)
 NS_SERVERS=$(echo $ZONE_ID_OUTPUT | jq -r '.DelegationSet.NameServers | @json')
-[cite_start]echo "Zona Alojada Creada: $HOSTED_ZONE_ID" [cite: 116-119]
+echo "Zona Alojada Creada: $HOSTED_ZONE_ID" 
 
 echo "--- 3. Creando Instancias EC2 (Estable y Canary) ---"
 INSTANCE_STABLE_ID=$(aws ec2 run-instances \
@@ -48,7 +48,7 @@ INSTANCE_STABLE_ID=$(aws ec2 run-instances \
   --security-group-ids $SG_EC2_ID \
   --user-data file://user-data-stable.sh \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Servidor-Estable-CLI}]' \
-  [cite_start]--query 'Instances[0].InstanceId' --output text) [cite: 49-56]
+  --query 'Instances[0].InstanceId' --output text) 
 echo "Instancia Estable creada: $INSTANCE_STABLE_ID"
 
 INSTANCE_CANARY_ID=$(aws ec2 run-instances \
@@ -58,7 +58,7 @@ INSTANCE_CANARY_ID=$(aws ec2 run-instances \
   --security-group-ids $SG_EC2_ID \
   --user-data file://user-data-canary.sh \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Servidor-Canary-CLI}]' \
-  [cite_start]--query 'Instances[0].InstanceId' --output text) [cite: 69-76]
+  --query 'Instances[0].InstanceId' --output text) 
 echo "Instancia Canary creada: $INSTANCE_CANARY_ID"
 
 echo "--- 4. Creando Grupos de Destino (Target Groups) ---"
@@ -66,7 +66,7 @@ TG_STABLE_ARN=$(aws elbv2 create-target-group \
   --name TG-Estable-CLI \
   --protocol HTTP --port 80 \
   --vpc-id $VPC_ID \
-  [cite_start]--query 'TargetGroups[0].TargetGroupArn' --output text) [cite: 92-94]
+  --query 'TargetGroups[0].TargetGroupArn' --output text) 
 echo "TG Estable creado: $TG_STABLE_ARN"
 
 TG_CANARY_ARN=$(aws elbv2 create-target-group \
@@ -90,7 +90,7 @@ ALB_ARN=$(aws elbv2 create-load-balancer \
   --security-groups $SG_ALB_ID \
   --scheme internet-facing \
   --type application \
-  [cite_start]--query 'LoadBalancers[0].LoadBalancerArn' --output text) [cite: 101-106]
+  ]--query 'LoadBalancers[0].LoadBalancerArn' --output text) 
 echo "ALB creado: $ALB_ARN"
 
 # Oyente HTTP (Puerto 80) -> Envía 100% a Estable (Fase 1)
@@ -101,7 +101,7 @@ LISTENER_80_ARN=$(aws elbv2 create-listener \
     "Type": "forward",
     "TargetGroupArn": "'"$TG_STABLE_ARN"'"
   }]' \
-  [cite_start]--query 'Listeners[0].ListenerArn' --output text) [cite: 107-110]
+  --query 'Listeners[0].ListenerArn' --output text) 
 echo "Oyente HTTP:80 (100% Estable) creado."
 
 echo "--- 6. Creando Registro DNS 'A' para el ALB ---"
@@ -123,7 +123,7 @@ aws route53 change-resource-record-sets \
         }
       }
     }]
-  [cite_start]}' [cite: 140-149]
+  }' 
 echo "Registro A (Alias) creado para $APP_URL"
 
 # --- GUARDAR ESTADO ---
@@ -142,7 +142,7 @@ echo "export APP_URL=$APP_URL" >> $STATE_FILE
 echo "--- 🌍 ¡ACCIÓN MANUAL REQUERIDA! 🌍 ---"
 echo "El despliegue está casi completo."
 echo "Debes delegar tu subdominio '$DOMAIN_NAME' a AWS."
-[cite_start]echo "Entra en NOMINALIA y crea 4 registros NS para el host 'aws' con estos valores:" [cite: 121, 123-137, 215-240]
+echo "Entra en NOMINALIA y crea 4 registros NS para el host 'aws' con estos valores:" 
 echo $NS_SERVERS | jq -r '.[]'
 echo "------------------------------------------"
 echo "Una vez propagado, tu app estará en: http://$APP_URL"
