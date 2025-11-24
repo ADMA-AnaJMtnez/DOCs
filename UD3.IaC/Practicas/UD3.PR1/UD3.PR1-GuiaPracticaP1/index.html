@@ -1,0 +1,1383 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Automatización, Despliegue y Migración de Aplicaciones">
+      
+      
+      
+        <link rel="canonical" href="https://sitename.example.com/UD3.IaC/Practicas/UD3.PR1/UD3.PR1-GuiaPracticaP1/">
+      
+      
+        <link rel="prev" href="../../../TEORIA/">
+      
+      
+        <link rel="next" href="../UD3.PR1-ConfigurarCredencialesAWS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>PR1: Guía Canary CLI_HTML- P1 - CE·Cloud-ADMA</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ud3pr1-parte-1-de-la-consola-a-la-cli-tu-despliegue-canary-http" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="CE·Cloud-ADMA" class="md-header__button md-logo" aria-label="CE·Cloud-ADMA" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CE·Cloud-ADMA
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PR1: Guía Canary CLI_HTML- P1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../TEORIA/" class="md-tabs__link">
+          
+  
+  
+  UD3. IaC
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="CE·Cloud-ADMA" class="md-nav__button md-logo" aria-label="CE·Cloud-ADMA" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    CE·Cloud-ADMA
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UD3. IaC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UD3. IaC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../TEORIA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UD3.PR1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UD3.PR1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR1: Guía Canary CLI_HTML- P1
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR1: Guía Canary CLI_HTML- P1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ud3pr1-parte-1-de-la-consola-a-la-cli-tu-despliegue-canary-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 UD3.PR1 (Parte 1): De la Consola a la CLI: Tu Despliegue Canary (HTTP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 UD3.PR1 (Parte 1): De la Consola a la CLI: Tu Despliegue Canary (HTTP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-prerrequisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prerrequisitos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-paso-1-configuracion-del-entorno-de-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Paso 1: Configuración del Entorno de Proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-paso-2-configurar-credenciales-de-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Paso 2: Configurar Credenciales de AWS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-paso-3-escribir-los-scripts-de-infraestructura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Paso 3: Escribir los Scripts de Infraestructura
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Paso 3: Escribir los Scripts de Infraestructura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-scripts-user-data-v1-y-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Scripts User Data (v1 y v2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-el-script-de-creacion-deploysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. El Script de Creación (deploy.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-el-script-de-despliegue-canarysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. El Script de Despliegue (canary.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-el-script-de-destruccion-destroysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4. El Script de Destrucción (destroy.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ejecucion-parte-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 6. Ejecución (Parte 1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 6. Ejecución (Parte 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-preparacion-de-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 1. Preparación de Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fases-de-despliegue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 2. Fases de Despliegue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ 2. Fases de Despliegue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fase-1-despliegue-inicial-estable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fase 1: Despliegue Inicial (Estable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fase-3-despliegue-completo-0100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fase 3: Despliegue Completo (0/100)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UD3.PR1-GuiaPracticaP2.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR1: Guía Canary CLI_HTMLS- P2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ayuda
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ayuda
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UD3.PR1-ConfigurarCredencialesAWS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR1: Configuración Credenciales AWS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ud3pr1-parte-1-de-la-consola-a-la-cli-tu-despliegue-canary-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 UD3.PR1 (Parte 1): De la Consola a la CLI: Tu Despliegue Canary (HTTP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 UD3.PR1 (Parte 1): De la Consola a la CLI: Tu Despliegue Canary (HTTP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-prerrequisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prerrequisitos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-paso-1-configuracion-del-entorno-de-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Paso 1: Configuración del Entorno de Proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-paso-2-configurar-credenciales-de-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Paso 2: Configurar Credenciales de AWS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-paso-3-escribir-los-scripts-de-infraestructura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Paso 3: Escribir los Scripts de Infraestructura
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Paso 3: Escribir los Scripts de Infraestructura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-scripts-user-data-v1-y-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Scripts User Data (v1 y v2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-el-script-de-creacion-deploysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. El Script de Creación (deploy.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-el-script-de-despliegue-canarysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. El Script de Despliegue (canary.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-el-script-de-destruccion-destroysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4. El Script de Destrucción (destroy.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ejecucion-parte-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 6. Ejecución (Parte 1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 6. Ejecución (Parte 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-preparacion-de-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 1. Preparación de Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fases-de-despliegue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 2. Fases de Despliegue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ 2. Fases de Despliegue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fase-1-despliegue-inicial-estable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fase 1: Despliegue Inicial (Estable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fase-3-despliegue-completo-0100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fase 3: Despliegue Completo (0/100)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>PR1: Guía Canary CLI_HTML- P1</h1>
+
+<h2 id="ud3pr1-parte-1-de-la-consola-a-la-cli-tu-despliegue-canary-http">🚀 UD3.PR1 (Parte 1): De la Consola a la CLI: Tu Despliegue Canary (HTTP)</h2>
+<h3 id="1-introduccion">1. Introducción</h3>
+<p>En la práctica UD2.PR6, construimos manualmente una arquitectura "Canary" usando la consola de AWS. Este método fue excelente para aprender visualmente, pero es lento, propenso a errores humanos y no es escalable.</p>
+<p>El siguiente nivel profesional es la <strong>Infraestructura como Código (IaC)</strong>.</p>
+<p>En esta práctica, vamos a abandonar la consola gráfica. Recrearemos <strong>toda</strong> la infraestructura de la UD2.PR6 (SGs, EC2, TGs, ALB, Route 53) usando exclusivamente la <strong>AWS CLI (Command Line Interface)</strong>. Dejaremos la aplicación funcionando de forma insegura por <strong>HTTP (puerto 80)</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">Parte 2</p>
+<p>En la siguiente guía (Parte 2), usaremos la CLI para "parchear" esta infraestructura y migrarla a HTTPS.</p>
+</div>
+<h3 id="2-prerrequisitos">2. Prerrequisitos</h3>
+<p>Antes de empezar, asegúrate de tener todo tu entorno local preparado:</p>
+<ol>
+<li><strong>AWS CLI Instalada:</strong> Verifica que tienes la CLI de AWS instalada y funcional.<ul>
+<li><em>Documentación Oficial:</em> <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">Instalación de la AWS CLI</a></li>
+</ul>
+</li>
+<li><strong>Visual Studio Code (VS Code):</strong> Nuestro editor de código.<ul>
+<li><em>Documentación Oficial:</em> <a href="https://code.visualstudio.com/download">Instalación de VS Code</a></li>
+</ul>
+</li>
+<li><strong>Git:</strong> Para el control de versiones de nuestro código de infraestructura.<ul>
+<li><em>Documentación Oficial:</em> <a href="https://git-scm.com/downloads">Instalación de Git</a></li>
+<li><em>Guía Relacionada:</em> <a href="https://docs.github.com/es/repositories/creating-and-managing-repositories/creating-a-new-repository">Cómo crear un repositorio en GitHub</a></li>
+</ul>
+</li>
+<li><strong>Tu Dominio (Nominalia):</strong> Necesitas acceso a tu registrador de dominio para el paso manual de delegación de NS.<ul>
+<li><em>Documentación Oficial:</em> <a href="https://www.nominalia.com/">Pág. Oficial: Nominalia</a></li>
+</ul>
+</li>
+<li>
+<p><strong>VPC Base de Proyecto (Topología de Red):</strong>
+    Debes contar dentro de tu entorno de laboratorio con una VPC ya desplegada (puedes reutilizar la de la unidad anterior o crear una nueva con CloudFormation/Terraform) que cumpla estrictamente con la topología mostrada en la imagen inferior:</p>
+<ul>
+<li><strong>2 Zonas de Disponibilidad</strong> (ej. <code>eu-south-2a</code> y <code>eu-south-2b</code>).</li>
+<li><strong>Subredes Públicas y Privadas</strong> en cada zona.</li>
+<li><strong>Internet Gateway</strong> y <strong>Tablas de enrutamiento</strong> configuradas correctamente.</li>
+</ul>
+<p><img alt="Mapa de recursos de la VPC con subredes públicas y privadas" src="../img/EjemVPCbase.png" /></p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Usuario de AWS (Landing Zone / Academy)</p>
+<ul>
+<li><strong>Opción A (Preferida - Landing Zone):</strong> Intentarás la práctica primero con las <strong>credenciales programáticas</strong> (<code>Access Key ID</code> y <code>Secret Access Key</code>) asociadas a tu usuario de la Landing Zone.</li>
+<li><strong>Opción B (Contingencia - Academy):</strong> Si encuentras <strong>errores de permisos</strong> (errores "Access Denied" o similares) en la Landing Zone, detente. <strong>Recoge y documenta todos los errores</strong>. Deberás <strong>escalar estos errores</strong> al equipo de administración.</li>
+<li>Para poder completar la práctica, cambia a tu entorno de <strong>Laboratorio de AWS Academy</strong>, donde sí tienes los permisos de administrador necesarios.</li>
+</ul>
+</div>
+<hr />
+<h3 id="3-paso-1-configuracion-del-entorno-de-proyecto">3. Paso 1: Configuración del Entorno de Proyecto</h3>
+<ol>
+<li><strong>Crear un Repositorio Privado:</strong> Ve a GitHub y crea un nuevo repositorio <strong>privado</strong> llamado <code>iac-aws-canary-http.[TUSSIGLAS]</code> (reemplaza <code>[TUSSIGLAS]</code> con tus siglas).</li>
+<li><strong>Clonar y Abrir:</strong> Clona el repositorio, entra en la carpeta (<code>cd iac-aws-canary-http.[TUSSIGLAS]</code>) y ábrela con VS Code (<code>code .</code>).</li>
+<li>
+<p><strong>Crear Estructura:</strong> Crea los siguientes archivos:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>iac-aws-canary-http.[TUSSIGLAS]/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── deploy.sh
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── canary.sh
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── destroy.sh
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── user-data-stable.sh
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>└── user-data-canary.sh
+</span></code></pre></div>
+</li>
+</ol>
+<hr />
+<h3 id="4-paso-2-configurar-credenciales-de-aws">4. Paso 2: Configurar Credenciales de AWS</h3>
+<ol>
+<li>Abre tu terminal y ejecuta <code>aws configure</code>.</li>
+<li>Introduce el <code>AWS Access Key ID</code> y <code>AWS Secret Access Key</code>.</li>
+<li>Define tu región por defecto (ej. <code>eu-west-1</code>) y formato de salida (<code>json</code>).</li>
+</ol>
+<hr />
+<h3 id="5-paso-3-escribir-los-scripts-de-infraestructura">5. Paso 3: Escribir los Scripts de Infraestructura</h3>
+<h4 id="51-scripts-user-data-v1-y-v2">5.1. Scripts User Data (v1 y v2)</h4>
+<p>Copia el contenido de los scripts <code>bash</code> en los archivos correspondientes.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">user-data-stable.sh (v1 - Verde)</label><label for="__tabbed_1_2">user-data-canary.sh (v2 - Azul)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><span class="filename">user-data-stable.sh</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>yum<span class="w"> </span>update<span class="w"> </span>-y
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>httpd
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>systemctl<span class="w"> </span>start<span class="w"> </span>httpd
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&lt;body style=&#39;background-color:lightgreen;...&#39;&gt;&lt;h1&gt;☑ Entorno ESTABLE (v1.0)...&lt;/h1&gt;...&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/var/www/html/index.html
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><span class="filename">user-data-canary.sh</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>yum<span class="w"> </span>update<span class="w"> </span>-y
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>httpd
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>systemctl<span class="w"> </span>start<span class="w"> </span>httpd
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&lt;body style=&#39;background-color:powderblue;...&#39;&gt;&lt;h1&gt;🚀 Entorno CANARY (v2.0)...&lt;/h1&gt;...&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/var/www/html/index.html
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="52-el-script-de-creacion-deploysh">5.2. El Script de Creación (<code>deploy.sh</code>)</h4>
+<p>Este script creará <strong>todo</strong> para HTTP: SGs (solo puerto 80), la zona DNS, las instancias, los 
+Este script creará <strong>todo</strong> para HTTP: SGs (solo puerto 80), la zona DNS, las instancias, los TGs, el ALB y el Listener HTTP.</p>
+<p>Puedes ver la <strong>explicación detallada</strong> del script o <strong>descargarlo</strong> directamente:</p>
+<p><a class="md-button" href="../UD3.PR1-deploy/">Ver Explicación <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 2c1.981 0 3.671.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 0 1 0 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14s-3.671-.992-4.933-2.078C1.797 10.83.88 9.576.43 8.898a1.62 1.62 0 0 1 0-1.798c.45-.677 1.367-1.931 2.637-3.022C4.33 2.992 6.019 2 8 2M1.679 7.932a.12.12 0 0 0 0 .136c.411.622 1.241 1.75 2.366 2.717C5.176 11.758 6.527 12.5 8 12.5s2.825-.742 3.955-1.715c1.124-.967 1.954-2.096 2.366-2.717a.12.12 0 0 0 0-.136c-.412-.621-1.242-1.75-2.366-2.717C10.824 4.242 9.473 3.5 8 3.5s-2.825.742-3.955 1.715c-1.124.967-1.954 2.096-2.366 2.717M8 10a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 10"/></svg></span></a>
+<a class="md-button" href="../UD3.PR1-deploy-ConErrores.txt">Descargar <code>UD3.PR1-deployConError</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06z"/></svg></span></a></p>
+<h4 id="53-el-script-de-despliegue-canarysh">5.3. El Script de Despliegue (<code>canary.sh</code>)</h4>
+<p>Este script modificará el <strong>Listener 80</strong> (HTTP) para cambiar los pesos.</p>
+<p>Puedes ver la <strong>explicación detallada</strong> del script o <strong>descargarlo</strong> directamente:</p>
+<p><a class="md-button" href="../UD3.PR1-canary/">Ver Explicación <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 2c1.981 0 3.671.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 0 1 0 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14s-3.671-.992-4.933-2.078C1.797 10.83.88 9.576.43 8.898a1.62 1.62 0 0 1 0-1.798c.45-.677 1.367-1.931 2.637-3.022C4.33 2.992 6.019 2 8 2M1.679 7.932a.12.12 0 0 0 0 .136c.411.622 1.241 1.75 2.366 2.717C5.176 11.758 6.527 12.5 8 12.5s2.825-.742 3.955-1.715c1.124-.967 1.954-2.096 2.366-2.717a.12.12 0 0 0 0-.136c-.412-.621-1.242-1.75-2.366-2.717C10.824 4.242 9.473 3.5 8 3.5s-2.825.742-3.955 1.715c-1.124.967-1.954 2.096-2.366 2.717M8 10a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 10"/></svg></span></a>
+<a class="md-button" href="../UD3.PR1-canary.sh">Descargar <code>UD3.PR1-canary.sh</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06z"/></svg></span></a></p>
+<h4 id="54-el-script-de-destruccion-destroysh">5.4. El Script de Destrucción (<code>destroy.sh</code>)</h4>
+<p>Este script elimina solo los recursos HTTP creados.</p>
+<p>Puedes ver la <strong>explicación detallada</strong> del script o <strong>descargarlo</strong> directamente:</p>
+<p><a class="md-button" href="../UD3.PR1-destroy/">Ver Explicación <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 2c1.981 0 3.671.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 0 1 0 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14s-3.671-.992-4.933-2.078C1.797 10.83.88 9.576.43 8.898a1.62 1.62 0 0 1 0-1.798c.45-.677 1.367-1.931 2.637-3.022C4.33 2.992 6.019 2 8 2M1.679 7.932a.12.12 0 0 0 0 .136c.411.622 1.241 1.75 2.366 2.717C5.176 11.758 6.527 12.5 8 12.5s2.825-.742 3.955-1.715c1.124-.967 1.954-2.096 2.366-2.717a.12.12 0 0 0 0-.136c-.412-.621-1.242-1.75-2.366-2.717C10.824 4.242 9.473 3.5 8 3.5s-2.825.742-3.955 1.715c-1.124.967-1.954 2.096-2.366 2.717M8 10a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 10"/></svg></span></a>
+<a class="md-button" href="../UD3.PR1-destroy.sh">Descargar <code>UD3.PR1-destroy.sh</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06z"/></svg></span></a></p>
+<h2 id="6-ejecucion-parte-1">🚀 6. Ejecución (Parte 1)</h2>
+<p>Sigue estos pasos para desplegar y probar tu aplicación.</p>
+<hr />
+<h3 id="1-preparacion-de-scripts">💻 1. Preparación de Scripts</h3>
+<p>Primero, asegúrate de que tus scripts sean ejecutables. En tu terminal local, ejecuta:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>deploy.sh<span class="w"> </span>canary.sh<span class="w"> </span>destroy.sh<span class="w"> </span>
+</span></code></pre></div>
+<h3 id="2-fases-de-despliegue">⚙️ 2. Fases de Despliegue</h3>
+<p>Sigue esta secuencia para realizar un despliegue canary controlado.</p>
+<h4 id="fase-1-despliegue-inicial-estable">Fase 1: Despliegue Inicial (Estable)</h4>
+<ol>
+<li><strong>Ejecuta</strong> el script de despliegue:
+    <code>./deploy.sh</code></li>
+<li><strong>Acción Manual:</strong> Sigue la instrucción que aparecerá en la terminal para delegar los Name Servers (NS) en tu panel de control de <strong>Nominalia</strong>.</li>
+<li><strong>Prueba:</strong> Espera a que los cambios de DNS se propaguen por completo.</li>
+<li><strong>Verifica:</strong> Visita tu dominio <code>http://app.aws.tudominio.com</code>.</li>
+<li><strong>Resultado Esperado:</strong> Deberías ver la página <strong>Verde (Estable)</strong>.</li>
+</ol>
+<h4 id="fase-3-despliegue-completo-0100">Fase 3: Despliegue Completo (0/100)</h4>
+<ol>
+<li><strong>Ejecuta</strong> nuevamente el script de canary:
+    <code>./canary.sh</code></li>
+<li><strong>Elige</strong> la <strong>opción 2 (0/100)</strong>.</li>
+<li><strong>Prueba:</strong> Recarga la página en tu navegador.</li>
+<li><strong>Resultado Esperado:</strong> Ahora, solo deberías ver la página <strong>Azul (Canary)</strong> en todas las recargas.</li>
+</ol>
+<hr />
+<div class="admonition check">
+<p class="admonition-title">Entregable Parcial</p>
+<ol>
+<li>Sube todo tu código (los 5 archivos) al <strong>repositorio privado de GitHub</strong>.</li>
+<li>Prepara un <strong>PDF</strong> que incluya:<ul>
+<li>El enlace a tu repositorio privado.</li>
+<li>Capturas de pantalla de tu terminal mostrando la salida de <code>deploy.sh</code> y <code>canary.sh</code> (fases 2 y 3).</li>
+<li>Capturas de pantalla de tu navegador mostrando (con <code>http://</code>):<ul>
+<li>La página Verde (Fase 1).</li>
+<li>La página Azul (Fase 2).</li>
+<li>La página Azul (Fase 3).</li>
+</ul>
+</li>
+<li><strong>(Opcional)</strong> Si usaste la Landing Zone y falló, añade las capturas de los errores de permisos.</li>
+</ul>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../../TEORIA/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Teoría">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Teoría
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../UD3.PR1-ConfigurarCredencialesAWS/" class="md-footer__link md-footer__link--next" aria-label="Next: PR1: Configuración Credenciales AWS">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                PR1: Configuración Credenciales AWS
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.footer", "navigation.tabs", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
